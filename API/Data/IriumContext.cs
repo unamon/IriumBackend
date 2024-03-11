@@ -5,7 +5,7 @@ namespace API.Data;
 
 public class IriumContext : DbContext
 {
-    private IriumContext(DbContextOptions options) : base(options)
+    public IriumContext(DbContextOptions<IriumContext> options) : base(options)
     {
     }
 

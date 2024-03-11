@@ -1,4 +1,6 @@
+using API.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -6,9 +8,17 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class SchoolsController : ControllerBase
 {
-    [HttpGet]
-    public string GetSchools()
+    private readonly IriumContext _dbContext;
+    
+    public SchoolsController(IriumContext dbContext)
     {
-        return "Schools";
+        _dbContext = dbContext;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetSchools()
+    {
+        var schools = await _dbContext.Schools.ToListAsync();
+        return Ok(schools);
     }
 }

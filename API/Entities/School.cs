@@ -5,7 +5,7 @@ namespace API.Entities;
 public class School : BaseEntity
 {
     [Required]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     public string? Inep { get; set; }
     public string? EduQuestPartnerId { get; set; }
