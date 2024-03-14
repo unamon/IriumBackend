@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace API.Models;
+﻿namespace API.UnusedModels;
 
 public partial class ProfilesSchoolsPackage
 {
@@ -15,5 +12,5 @@ public partial class ProfilesSchoolsPackage
 
     public virtual ICollection<Progress> Progresses { get; set; } = new List<Progress>();
 
-    public virtual SchoolsPackage SchoolsPackages { get; set; } = null!;
+    // public virtual SchoolsPackage SchoolsPackages { get; set; } = null!;
 }

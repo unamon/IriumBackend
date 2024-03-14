@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace API.Models;
+﻿namespace API.UnusedModels;
 
 public partial class Package
 {
@@ -25,5 +22,5 @@ public partial class Package
 
     public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 
-    public virtual ICollection<SchoolsPackage> SchoolsPackages { get; set; } = new List<SchoolsPackage>();
+    // public virtual ICollection<SchoolsPackage> SchoolsPackages { get; set; } = new List<SchoolsPackage>();
 }

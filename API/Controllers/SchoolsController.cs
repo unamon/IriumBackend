@@ -21,4 +21,20 @@ public class SchoolsController : ControllerBase
         var schools = await _dbContext.Schools.ToListAsync();
         return Ok(schools);
     }
+    
+    
+    [HttpGet("/pkgs")]
+    public async Task<IActionResult> GetPkgs()
+    {
+        var schools = await _dbContext.Packages.ToListAsync();
+        return Ok(schools);
+    }
+
+    [HttpGet("/schpkgs")]
+    public async Task<IActionResult> GetScPkgs()
+    {
+        var schools = await _dbContext.SchoolsPackages.ToListAsync();
+        return Ok(schools);
+    }
+
 }

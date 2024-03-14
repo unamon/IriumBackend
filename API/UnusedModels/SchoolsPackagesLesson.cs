@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace API.Models;
+﻿namespace API.UnusedModels;
 
 public partial class SchoolsPackagesLesson
 {
@@ -13,5 +10,5 @@ public partial class SchoolsPackagesLesson
 
     public virtual Lesson Lesson { get; set; } = null!;
 
-    public virtual SchoolsPackage SchoolsPackages { get; set; } = null!;
+    // public virtual SchoolsPackage SchoolsPackages { get; set; } = null!;
 }

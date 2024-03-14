@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace API.Models;
+﻿namespace API.UnusedModels;
 
 public partial class Record
 {
@@ -33,5 +30,5 @@ public partial class Record
 
     public virtual Profile Profile { get; set; } = null!;
 
-    public virtual SchoolsPackage SchoolsPackages { get; set; } = null!;
+    // public virtual SchoolsPackage SchoolsPackages { get; set; } = null!;
 }

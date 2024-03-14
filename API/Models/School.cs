@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace API.Models;
 
-public partial class School
+public class School : BaseEntity
 {
-    public int Id { get; set; }
+    
 
     public string? Name { get; set; }
 
@@ -20,12 +20,12 @@ public partial class School
     public string? EduQuestPath { get; set; }
 
     public bool? DefaultCalendar { get; set; }
-
-    public virtual ICollection<Calendar> Calendars { get; set; } = new List<Calendar>();
-
-    public virtual ICollection<SchoolsPackage> SchoolsPackages { get; set; } = new List<SchoolsPackage>();
-
-    public virtual ICollection<SchoolsPlatform> SchoolsPlatforms { get; set; } = new List<SchoolsPlatform>();
-
-    public virtual ICollection<SchoolsStudent> SchoolsStudents { get; set; } = new List<SchoolsStudent>();
+    
+     // public virtual ICollection<Calendar> Calendars { get; set; } = new List<Calendar>();
+     //
+     public virtual ICollection<SchoolsPackage> SchoolsPackages { get; set; } = new List<SchoolsPackage>();
+     //
+     // public virtual ICollection<SchoolsPlatform> SchoolsPlatforms { get; set; } = new List<SchoolsPlatform>();
+     //
+     // public virtual ICollection<SchoolsStudent> SchoolsStudents { get; set; } = new List<SchoolsStudent>();
 }

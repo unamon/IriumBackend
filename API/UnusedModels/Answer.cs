@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using API.Models;
 
-namespace API.Models;
+namespace API.UnusedModels;
 
 public partial class Answer
 {
