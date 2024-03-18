@@ -9,6 +9,11 @@ public class IriumContext : DbContext
     {
     }
 
+    public IriumContext()
+    {
+        
+    }
+
     public DbSet<School> Schools { get; set; }
     public DbSet<Package> Packages { get; set; }
     public DbSet<SchoolsPackage> SchoolsPackages { get; set; }
