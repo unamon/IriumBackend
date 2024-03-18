@@ -6,42 +6,42 @@ namespace API.Services;
 
 public class SchoolService
 {
-    private readonly IriumContext _ctx;
+    private ISchoolsRepository _schoolsRepository;
 
-    public SchoolService(IriumContext dbContext)
+    public SchoolService(ISchoolsRepository schoolsRepository)
     {
-        _ctx = dbContext;
+        _schoolsRepository = schoolsRepository;
     }
 
-    public async Task<List<School>> GetAllSchools()
+    public async Task<IReadOnlyList<School>> GetAllSchools()
     {
-        return await _ctx.Schools.ToListAsync();
+        return await _schoolsRepository.GetAllSchoolsAsync();
     }
 
     public async Task<School> GetSchoolById(int id)
     {
-        return await _ctx.Schools.FindAsync(id);
+        return await _schoolsRepository.GetSchoolByIdAsync(id);
     }
 
-    public async Task AddSchoolAsync(School school)
-    {
-        _ctx.Schools.Add(school);
-        await _ctx.SaveChangesAsync();
-    }
-
-    public async Task UpdateSchool(School updatedSchool)
-    {
-        _ctx.Entry(updatedSchool).State = EntityState.Modified;
-        await _ctx.SaveChangesAsync();
-    }
-
-    public async Task DeleteSchool(int id)
-    {
-        var school = await _ctx.Schools.FindAsync(id);
-        if (school != null)
-        {
-            _ctx.Schools.Remove(school);
-            await _ctx.SaveChangesAsync();
-        }
-    }
+    // public async Task AddSchoolAsync(School school)
+    // {
+    //     _schoolsRepository.Schools.Add(school);
+    //     await _schoolsRepository.SaveChangesAsync();
+    // }
+    //
+    // public async Task UpdateSchool(School updatedSchool)
+    // {
+    //     _schoolsRepository.Entry(updatedSchool).State = EntityState.Modified;
+    //     await _schoolsRepository.SaveChangesAsync();
+    // }
+    //
+    // public async Task DeleteSchool(int id)
+    // {
+    //     var school = await _schoolsRepository.Schools.FindAsync(id);
+    //     if (school != null)
+    //     {
+    //         _schoolsRepository.Schools.Remove(school);
+    //         await _schoolsRepository.SaveChangesAsync();
+    //     }
+    // }
 }
