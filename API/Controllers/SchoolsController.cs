@@ -1,4 +1,7 @@
 using API.Data;
+using API.Models;
+using API.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,18 +11,21 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class SchoolsController : ControllerBase
 {
-    private readonly IriumContext _dbContext;
+    private readonly ISchoolService _service;
     
-    public SchoolsController(IriumContext dbContext)
+    public SchoolsController(ISchoolService service)
     {
-        _dbContext = dbContext;
+        _service = service;
     }
-
-    [HttpGet]
-    public async Task<IActionResult> GetSchools()
+    public async Task<IActionResult> getAllSchools()
     {
-        var schools = await _dbContext.Schools.ToListAsync();
+        var schools = await _service.GetAllSchools();
+
         return Ok(schools);
     }
 
+    public async Task<object> getSchoolById(int i)
+    {
+        throw new NotImplementedException();
+    }
 }

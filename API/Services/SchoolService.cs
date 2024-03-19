@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services;
 
-public class SchoolService
+public class SchoolService : ISchoolService
 {
     private ISchoolsRepository _schoolsRepository;
 

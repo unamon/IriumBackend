@@ -14,10 +14,10 @@ public class SchoolServiceTests
     {
 
     }
-
-    [Fact]
-    public async Task GetAllSchoolsAsync_ShouldReturnList()
-    {
-
-    }
+    //
+    // [Fact]
+    // public async Task GetAllSchoolsAsync_ShouldReturnList()
+    // {
+    //
+    // }
 }
