@@ -1,5 +1,6 @@
 using API.Data;
 using API.Models;
+using API.Models.DTOs;
 using API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +25,34 @@ public class SchoolsController : ControllerBase
         return Ok(schools);
     }
 
-    public async Task<object> getSchoolById(int i)
+    public async Task<IActionResult> getSchoolById(int i)
     {
-        throw new NotImplementedException();
+        var school = await _service.GetSchoolById(i);
+        if (school != null)
+        {
+            return Ok(school);
+        }
+
+        return NotFound();
+    }
+
+    [HttpPost]
+    public async Task<object> AddSchool([FromBody] SchoolDto schoolDto)
+    {
+        var school = new School()
+        {
+            Name = schoolDto.Name,
+            Inep = schoolDto.Inep
+        };
+
+        try
+        {
+            await _service.AddSchoolAsync(school);
+            return CreatedAtRoute("GetSchoolById", new { id = school.Id }, school);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal Server Error: {ex.Message}");
+        }
     }
 }

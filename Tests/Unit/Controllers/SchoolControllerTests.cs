@@ -1,5 +1,6 @@
 using API.Controllers;
 using API.Models;
+using API.Models.DTOs;
 using API.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -52,10 +53,38 @@ public class SchoolControllerTests
 
     }
 
+    [Fact]
     public async void getSchoolById_ReturnsNotFound()
     {
-        
+        schoolService.Setup(x => x.GetSchoolById(It.IsAny<int>()))
+            .ReturnsAsync((School)null);
+        var schoolController = new SchoolsController(schoolService.Object);
+
+        var result = await schoolController.getSchoolById(123);
+
+        var notFoundResult = Assert.IsType<NotFoundResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
     }
+
+    [Fact]
+    public async void createSchool_ReturnsSchool()
+    {
+        var schoolDto = new SchoolDto("Irium", "ffhfhfh");
+        schoolService.Setup(x => x.AddSchoolAsync(It.IsAny<School>()))
+            .Returns(Task.CompletedTask);
+        
+        var schoolsController = new SchoolsController(schoolService.Object);
+
+        var result = await schoolsController.AddSchool(schoolDto);
+
+        var createdAtRouteResult = Assert.IsType<CreatedAtRouteResult>(result);
+        Assert.Equal(201, createdAtRouteResult.StatusCode);
+
+        var school = Assert.IsType<School>(createdAtRouteResult.Value);
+        Assert.Equal(schoolDto.Name, school.Name);
+
+    }
+    
     public List<School> getSchoolsData()
     {
         List<School> schools = new List<School>()

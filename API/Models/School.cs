@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using API.Models.DTOs;
 
 namespace API.Models;
 
 public class School : BaseEntity
 {
-    
 
     public string? Name { get; set; }
 

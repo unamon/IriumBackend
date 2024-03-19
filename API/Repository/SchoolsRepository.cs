@@ -19,8 +19,15 @@ public class SchoolsRepository : ISchoolsRepository
         return await _context.Schools.ToListAsync();
     }
 
-    public async Task<School> GetSchoolByIdAsync(int id)
+    public async Task<School?> GetSchoolByIdAsync(int id)
     {
         return await _context.Schools.FirstOrDefaultAsync(s => s.Id == id);
+    }
+
+    public async Task CreateNewSchool(School newSchool)
+    {
+        await _context.Schools.AddAsync(newSchool);
+        await _context.SaveChangesAsync();
+         
     }
 }

@@ -18,10 +18,17 @@ public class SchoolService : ISchoolService
         return await _schoolsRepository.GetAllSchoolsAsync();
     }
 
-    public async Task<School> GetSchoolById(int id)
+    public async Task<School?> GetSchoolById(int id)
     {
         return await _schoolsRepository.GetSchoolByIdAsync(id);
+        
     }
+
+    public async Task AddSchoolAsync(School school)
+    {
+        await _schoolsRepository.CreateNewSchool(school);
+    }
+
 
     // public async Task AddSchoolAsync(School school)
     // {
