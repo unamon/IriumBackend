@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using API.Models.DTOs;
-
+using System.ComponentModel.DataAnnotations;
 namespace API.Models;
 
 public class School : BaseEntity
 {
+    public string Name { get; set; }
 
-    public string? Name { get; set; }
-
-    public string? Inep { get; set; }
+    public string Inep { get; set; }
 
     public int? ArvorePartnerId { get; set; }
 

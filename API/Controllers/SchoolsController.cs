@@ -13,11 +13,11 @@ namespace API.Controllers;
 public class SchoolsController : ControllerBase
 {
     private readonly ISchoolService _service;
-    
     public SchoolsController(ISchoolService service)
     {
         _service = service;
     }
+    [HttpGet]
     public async Task<IActionResult> getAllSchools()
     {
         var schools = await _service.GetAllSchools();
@@ -25,9 +25,10 @@ public class SchoolsController : ControllerBase
         return Ok(schools);
     }
 
-    public async Task<IActionResult> getSchoolById(int i)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> getSchoolById(int id)
     {
-        var school = await _service.GetSchoolById(i);
+        var school = await _service.GetSchoolById(id);
         if (school != null)
         {
             return Ok(school);
@@ -36,9 +37,25 @@ public class SchoolsController : ControllerBase
         return NotFound();
     }
 
-    [HttpPost]
-    public async Task<object> AddSchool([FromBody] SchoolDto schoolDto)
+    [HttpGet("{id}/packages")]
+    public async Task<IActionResult> GetPackagesOfSchool(int id)
     {
+        var school = await _service.GetSchoolById(id);
+        if (school != null)
+        {
+            return NotFound();
+        }
+        var packages =  await _service.GetPackagesOfSchool(id);
+        return Ok(packages);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> AddSchool([FromBody] SchoolDto schoolDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
         var school = new School()
         {
             Name = schoolDto.Name,
@@ -54,5 +71,11 @@ public class SchoolsController : ControllerBase
         {
             return StatusCode(500, $"Internal Server Error: {ex.Message}");
         }
+    }
+
+    [HttpPost("{schoolId}/packages/{packageId}")]
+    public async Task<IActionResult> AddPackageToSchool([FromBody] int schoolId, int packageId)
+    {
+        return NotFound();
     }
 }

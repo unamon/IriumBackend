@@ -29,8 +29,11 @@ public class SchoolService : ISchoolService
         await _schoolsRepository.CreateNewSchool(school);
     }
 
-
-    // public async Task AddSchoolAsync(School school)
+    public async Task<List<Package>> GetPackagesOfSchool(int schoolId)
+    {
+        return await _schoolsRepository.GetAllPackagesAssociatedToSchool(schoolId);
+    }
+    // public async Task AddSchoolAsync(School school) 
     // {
     //     _schoolsRepository.Schools.Add(school);
     //     await _schoolsRepository.SaveChangesAsync();

@@ -28,6 +28,14 @@ public class SchoolsRepository : ISchoolsRepository
     {
         await _context.Schools.AddAsync(newSchool);
         await _context.SaveChangesAsync();
-         
+    }
+
+    public async Task<List<Package>> GetAllPackagesAssociatedToSchool(int schoolId)
+    {
+        return await _context.Schools
+            .Where(s => s.Id == schoolId)
+            .SelectMany(s => s.SchoolsPackages)
+            .Select(sp => sp.Package)
+            .ToListAsync();
     }
 }

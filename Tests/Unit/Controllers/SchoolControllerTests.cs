@@ -85,6 +85,20 @@ public class SchoolControllerTests
 
     }
     
+    [Fact]
+    public async void createSchool_WithInvalidData_ReturnsBadRequest()
+    {   
+        var schoolDto = new SchoolDto("", "");
+        var schoolsController = new SchoolsController(schoolService.Object);
+        schoolsController.ModelState.AddModelError("Name", "Name is empty");
+
+        var result = await schoolsController.AddSchool(schoolDto);
+        
+        var badRequestResult = Assert.IsType<BadRequestResult>(result);
+        Assert.Equal(400, badRequestResult.StatusCode);
+    }
+    
+    public async void getSchoolPackages_returnsPackages(){}
     public List<School> getSchoolsData()
     {
         List<School> schools = new List<School>()
@@ -119,5 +133,10 @@ public class SchoolControllerTests
             },
         };
         return schools;
+    }
+
+    public List<Package> getPackagesData()
+    {
+        
     }
 }

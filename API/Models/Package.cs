@@ -20,5 +20,5 @@ public class Package : BaseEntity
     //
     // public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
     //
-    // public virtual ICollection<SchoolsPackage> SchoolsPackages { get; set; } = new List<SchoolsPackage>();
+    public virtual ICollection<SchoolsPackage> SchoolsPackages { get; set; } = new List<SchoolsPackage>();
 }
