@@ -1,6 +1,8 @@
 using API.Data;
 using API.Models;
+using API.Models.DTOs;
 using API.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository;
@@ -38,4 +40,49 @@ public class SchoolsRepository : ISchoolsRepository
             .Select(sp => sp.Package)
             .ToListAsync();
     }
+
+    public async Task AddPackageToSchool(int schoolId, int packageId)
+    {
+        var schoolPackage = new SchoolsPackage()
+        {
+            SchoolId = schoolId,
+            PackageId = packageId
+        };
+        
+        await _context.SchoolsPackages.AddAsync(schoolPackage);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteSchool(int schoolId)
+    {
+        var school = await _context.Schools
+            .FirstOrDefaultAsync(s => s.Id == schoolId);
+        if (school != null)
+        {
+            _context.Schools.Remove(school);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task UpdateSchoolAsync(int id, SchoolDto schoolDto)
+    {
+        var school = await _context.Schools.FirstOrDefaultAsync(s => s.Id == id);
+        if (school != null)
+        {
+            var updatedSchool = new School()
+            {
+                Id = id,
+                Name = schoolDto.Name,
+                Inep = schoolDto.Inep
+            };
+            _context.Schools.Update(updatedSchool);
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            throw new NotFoundException($"School with ID {id} not found.");
+        }
+    }
+
+
 }

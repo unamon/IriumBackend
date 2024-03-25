@@ -1,5 +1,6 @@
 using API.Data;
 using API.Models;
+using API.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services;
@@ -33,6 +34,22 @@ public class SchoolService : ISchoolService
     {
         return await _schoolsRepository.GetAllPackagesAssociatedToSchool(schoolId);
     }
+
+    public async Task AddPackageToSchool(int schooldId, int packageId)
+    {
+        await _schoolsRepository.AddPackageToSchool(schooldId, packageId);
+    }
+
+    public async Task DeleteSchool(int schoolId)
+    {
+        await _schoolsRepository.DeleteSchool(schoolId);
+    }
+
+    public async Task UpdateSchoolAsync(int id, SchoolDto updatedSchool)
+    {
+        await _schoolsRepository.UpdateSchoolAsync(id, updatedSchool);
+    }
+
     // public async Task AddSchoolAsync(School school) 
     // {
     //     _schoolsRepository.Schools.Add(school);

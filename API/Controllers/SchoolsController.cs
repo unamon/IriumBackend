@@ -54,7 +54,7 @@ public class SchoolsController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest();
+            return BadRequest(ModelState);
         }
         var school = new School()
         {
@@ -76,6 +76,56 @@ public class SchoolsController : ControllerBase
     [HttpPost("{schoolId}/packages/{packageId}")]
     public async Task<IActionResult> AddPackageToSchool([FromBody] int schoolId, int packageId)
     {
-        return NotFound();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var school = await _service.GetSchoolById(schoolId);
+        if (school == null)
+        {
+            return StatusCode(404, $"School {schoolId} not found.");
+        }
+        await _service.AddPackageToSchool(schoolId, packageId);
+        return Ok();
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteSchool(int schoolId)
+    {
+        try
+        {
+            await _service.DeleteSchool(schoolId);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateSchool(int id, SchoolDto updatedSchool)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _service.UpdateSchoolAsync(id, updatedSchool);
+            return NoContent();
+        }
+        
+        catch (NotFoundException)
+        {
+            return NotFound();
+        }
+        
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal Server Error: {ex.Message}");
+        }
     }
 }
